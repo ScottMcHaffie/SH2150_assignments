@@ -1,0 +1,582 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{multirow}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{quote}
+ASSIGNMENT I\\
+Regression and Classification
+
+SH2150 Machine Learning in Physics
+\end{quote}
+
+October 2025
+
+\begin{quote}
+You are using a very fast detector to measure the energy spectrum of
+gamma photons emitted by an unknown radioactive nuclide. After some
+initial experiments you conclude that this nuclide emits two gamma rays
+with energies \emph{EA} (first photon) and \emph{EB} (second photon) in
+very rapid succession, with a time difference on the order of a
+picosecond. The photons are emitted in random directions, and therefore
+you only detect one of them in most cases. However, in some rare cases
+you manage to measure both and determine the order they arrive in so
+that you can label them \emph{A} and \emph{B}.
+
+The photons interact with the detector through compton scattering and
+you measure the energy \emph{E} and scattering angle \emph{θ} for each
+photon. Some photons also photointeract in the detector, but their
+energy is outside the detector's range of validity (\emph{E
+\textgreater{}} 650 keV) so you cannot get a trustworthy energy
+measurement from these, and therefore you discard them.
+
+Your mission is to
+
+• classify the photon events into two categories, namely \emph{A} and
+\emph{B},
+
+• estimate the incident photon energies \emph{EA} and \emph{EB},
+
+• and finally identify the nuclide.
+
+1. The logistic regression model for classification is given by
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}@{}}
+\toprule()
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.4444} + 6\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\emph{y} = \emph{σ}(\textbf{W}\emph{⃗x} + \emph{b}) =
+\end{minipage}} &
+\multicolumn{4}{>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.4444} + 6\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+1\\
+1 + \emph{e−}(\textbf{W}\emph{⃗x}+\emph{b})\emph{,}\strut
+\end{minipage}} &
+\multirow{5}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(2p)
+\end{minipage}} \\
+\multicolumn{8}{@{}>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.8889} + 14\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+where we assume that the target variables \emph{y}(\emph{i})are
+independently Bernoulli distributed with parameters ˆtherefore be
+interpreted as a probability. \emph{y}(\emph{i})=
+\emph{σ}(\textbf{W}\emph{⃗x}(\emph{i})+ \emph{b}), for \emph{i} =
+1\emph{, . . . , n}. Observe that \emph{y ∈}(0\emph{,} 1) and can
+\end{quote}
+\end{minipage}} \\
+\begin{minipage}[b]{\linewidth}\raggedright
+(a)
+\end{minipage} &
+\multicolumn{7}{>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.7778} + 12\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Show that fitting the model by maximizing the likelihood
+\emph{L}(\textbf{W}\emph{, b \textbar{} ⃗}data
+(\emph{⃗x}(\emph{i})\emph{, y}(\emph{i}))\emph{n i}=1under the model
+w.r.t. \textbf{W}\emph{, b}, is equivalent to minimizing the \emph{x,
+y}) of the
+
+cross-entropy (CE) loss defined by
+\end{quote}
+\end{minipage}} \\
+\multicolumn{2}{@{}>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.2222} + 2\tabcolsep}}{%
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+\emph{L}CE(\textbf{W}\emph{, b}) = \emph{−}1
+\end{minipage}}} & \begin{minipage}[b]{\linewidth}\raggedright
+\emph{n}
+\end{minipage} &
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.2222} + 2\tabcolsep}}{%
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+\emph{y}(\emph{i})log ˆ\emph{y}(\emph{i})+ (1 \emph{−y}(\emph{i})) log
+\end{minipage}}} &
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+1 \emph{−}ˆ\emph{y}(\emph{i})
+\end{minipage}} &
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\emph{.}
+\end{quote}
+\end{minipage}} &
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(1)
+\end{minipage}} \\
+& & \begin{minipage}[b]{\linewidth}\raggedright
+\emph{i}=1
+\end{minipage} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+(Hint: write out the log-likelihood of the Bernoulli distribution and
+simplify).
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule()
+\multirow{3}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(b)
+\end{minipage}} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Derive an expression for the decision boundary when we have two
+predictor vari-
+\end{quote}
+\end{minipage} &
+\multirow{3}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(2p)
+\end{minipage}} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+ables. That is, if \emph{⃗x} = (\emph{x}1\emph{, x}2)\emph{⊤}, for what
+\emph{⃗x} is the model \emph{y} = \emph{σ}(\textbf{W}\emph{⃗x} +
+\emph{b}) most
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+uncertain as to which class \emph{⃗x} belongs to?
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+1
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule()
+\multirow{5}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(c)
+\end{minipage}} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Fit the logistic model to the measuredData.mat dataset by minimizing the
+CE loss,
+\end{quote}
+\end{minipage} &
+\multirow{5}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(2p)
+\end{minipage}} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+taking the scattering angle and measured energy as input variables
+\emph{x} = (\emph{θ, V} ). Use
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+the Adam optimizer with learning rate 10\emph{−}2and run 10 000 epochs.
+Using the
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+formula found in 2b) plot the found decision boundary on top of the
+data, and
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+report the found coefficients \textbf{W}\emph{, b}.
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+If you did not find a formula in 2b) for the boundary you can use the
+approximate formula \emph{x}2 = \emph{−}115 + 810\emph{x}1.
+
+(Hint: in PyTorch you can use the Adam optimizer to minimize the loss
+function via torch.optim.Adam)
+
+2. The logistic model can be interpreted as a simple neural network that
+first runs the input \emph{x} through an affine function
+\emph{⃗}activation \emph{y} = \emph{σ}(\textbf{W}\emph{⃗}neural network
+by adding more (hidden) layers with more nodes, and play with the
+\emph{x} + \emph{b}) \emph{∈}{[}0\emph{,} 1{]}. We can expand this into
+an arbitrary feed-forward \emph{x →}\textbf{W}\emph{⃗x} + \emph{b} and
+then spits out a single sigmoid
+
+choice of activation functions1to get the model
+\end{quote}
+
+\emph{y} = \emph{σl}(\textbf{W}\emph{l · · ·
+σ}2(\textbf{W}2\emph{σ}1(\textbf{W}1\emph{⃗x} + \emph{b}1) + \emph{b}2)
+\emph{· · ·} + \emph{bl})
+
+\begin{quote}
+where \emph{σ} is a choice of activation function properly chosen for
+the case at hand.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+(a)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Instead of the logistics model above, fit a neural network with a two
+hidden layers
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+(2p)
+\end{minipage} \\
+\midrule()
+\endhead
+\multirow{9}{*}{(b)} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+of dimension 32 followed by 16, with tanh activations, and a single
+output node
+\end{quote}
+\end{minipage} & \multirow{9}{*}{(1p)} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+with sigmoid activation, using the CE loss and the Adam optimizer. Train
+it for
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+7 500 epochs with learning rate 10\emph{−}3. Make sure you get a
+reasonable fit, if not,
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+run the training again. Plot the decision boundary on top of the data
+and comment
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+on its shape in comparison to the one found in 1(c). Are there any
+differences?
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Experiment a bit with the architecture of your neural network by
+adjusting the
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+number of hidden layers and the number of nodes per layer. Try to
+achieve the
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+highest possible training accuracy while keeping the network as simple
+as possible.
+\end{quote}
+\end{minipage} \\
+& \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Is this a good classifier, how would it perform on unseen data?
+\end{quote}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+3. Using your classification of the data (either classifying using the
+model from problem 1 or problem 2) we shall now fit one regression model
+to each class respectively in order to infer the incident energies
+\emph{EA, EB}.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule()
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(a)
+\end{minipage}} &
+\multicolumn{3}{>{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.6000} + 4\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Recall the Compton formula
+\end{quote}
+\end{minipage}} &
+\multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(1p)
+\end{minipage}} \\
+& \multirow{2}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+\emph{E′}=
+\end{minipage}} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\emph{E}0
+\end{quote}
+\end{minipage} \\
+\multirow{3}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(b)
+\end{minipage}} & & \begin{minipage}[b]{\linewidth}\raggedright
+1 +
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\emph{E}0\\
+\emph{mec}2 (1 \emph{−}cos \emph{θ})
+\end{quote}\strut
+\end{minipage} &
+\multirow{3}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(3p)
+\end{minipage}} \\
+&
+\multicolumn{3}{>{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.6000} + 4\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+that describes the energy \emph{E′}of a photon after having Compton
+interacted with
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{3}{>{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.6000} + 4\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+angle \emph{θ}, where \emph{E}0 was the initial energy. Let \emph{t} = 1
+\emph{−}cos \emph{θ} and Taylor expand the measured energy
+\emph{E}(\emph{t}) = \emph{E}0 \emph{−E′}(\emph{t}) in terms of
+\emph{t}.
+
+Fit each of the two classes of data to the regression model
+\end{quote}
+\end{minipage}} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+\emph{y} = \textbf{W}\emph{⃗x} + \emph{b}
+
+\begin{quote}
+where now \emph{⃗x} = (\emph{t, t}2\emph{, t}3\emph{, . . .})\emph{⊤, y}
+= \emph{E, b} = 0, using mean square error loss (nn.MSELoss()), with
+learning rate 103for 25 000 epochs. Keep at least the cubic terms. Plot
+both fitted curves in the same plot together with the data.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+(c)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Derive a relationship \emph{E}0 = \emph{E}0(\emph{Wi}) between the found
+Taylor coefficients \emph{Wi} and the initial energy \emph{E}0.
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+(1p)
+\end{minipage} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+1activation functions are applied component-wise for vector outputs
+\end{quote}
+
+Page 2
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule()
+\multirow{9}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+4.
+\end{minipage}} & \begin{minipage}[b]{\linewidth}\raggedright
+(d)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Use the linear term \emph{W}0 to deduce and report your estimates for
+\emph{EA} 0and \emph{EB} 0. Why
+
+does the linear term give a better estimate then the higher order terms
+here?
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+(2p)
+\end{minipage} \\
+& \begin{minipage}[b]{\linewidth}\raggedright
+(e)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Fitting a regression model with mean square error loss implicitly means
+that we
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+(3p)
+\end{minipage} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+assume the errors (noise) to be identically and independently
+distributed (iid) nor-
+\end{quote}
+\end{minipage}} &
+\multirow{7}{*}{\begin{minipage}[b]{\linewidth}\raggedright
+(1p)
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+mal random variables. In this case, we have assumed the noise to be
+approximately
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+iid normal, but looking closely at the data we can see that this is not
+the case. De-
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+scribe a way to handle the varying noise to get a more robust fit, and
+investigate
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+how the result changes when you apply this method.
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Find a reasonable candidate for the unknown nuclide using your estimated
+energies. For
+\end{quote}
+\end{minipage}} \\
+&
+\multicolumn{2}{>{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5000} + 2\tabcolsep}}{%
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+this question \emph{only}, you are allowed to ask an AI chatbot for
+help!
+\end{quote}
+\end{minipage}} \\
+\midrule()
+\endhead
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+\emph{Final question:} Did you use an AI tool (other than the machine
+learning models you trained in this exercise) for anything else than
+information searching, when solving this problem set (including problem
+4)? If so, please write a \textbf{brief statement of how you used AI.}.
+
+Total number of points: 20
+
+Remember to motivate your answers wherever applicable.
+
+Good luck!
+\end{quote}
+
+Page 3
+
+\end{document}
