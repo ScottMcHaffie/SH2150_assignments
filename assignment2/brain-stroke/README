@@ -1,0 +1,9 @@
+This dataset consists of anonymized non-contrast head CT scans labeled into three clinically relevant categories: normal, ischemic stroke, and hemorrhagic stroke. The images were collected from the Republic of Türkiye Ministry of Health’s national e-Pulse and Teleradiology systems during 2019–2020, and annotated by seven board-certified radiologists. The dataset was curated for the TEKNOFEST-2021 Artificial Intelligence in Healthcare competition and is intended for research into automated medical image interpretation.
+
+Classes: normal, ischemia, bleeding
+
+Source: Republic of Türkiye Ministry of Health
+
+Reference: Koç U. et al., Eurasian J Med., 2022
+
+Usage: All legal rights reserved by the Ministry of Health
