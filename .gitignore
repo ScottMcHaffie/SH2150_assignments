@@ -1,6 +1,7 @@
 # data
 assignment3/data.zip
 assignment3/data/*
+assignment3/figures
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
